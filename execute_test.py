@@ -1,0 +1,52 @@
+#!/usr/bin/python3
+# Author:Maweiqing
+# -*- coding: utf-8 -*-
+# @Time     :2021/2/22 10:32
+# @Software: PyCharm
+import requests
+import json
+from common.jsonaction import openjson
+import unittest
+from HTMLTestRunner import HTMLTestRunner
+
+class SuiteDemo(unittest.TestCase):
+
+    # 测试用例前执行
+    def setUp(self):
+        print('Case Before')
+        pass
+
+    # 测试用例后执行
+    def tearDown(self):
+        print('Case After')
+        pass
+
+    def test_Case1(self):
+        a = 3
+        b = 2
+        self.assertEqual(a + b, 5, 'Result Fail')
+        print('Case1')
+
+    def test_Case2(self):
+        a = 2
+        b = 3
+        self.assertEqual(a * b, 6, 'Result Fail')
+        print('Case2')
+
+
+# 定义一个测试集合，方便添加Case
+
+def suite():
+    suiteTest = unittest.TestSuite()
+    suiteTest.addTest(SuiteDemo("test_Case1"))
+    suiteTest.addTest(SuiteDemo("test_Case2"))
+    return suiteTest
+
+
+# 默认运行时通过 Suite 运行
+
+if __name__ == '__main__':
+    with open("my_report.html", 'wb') as fp:
+        runner = HTMLTestRunner.HTMLTestRunner(stream=fp)
+        runner.run(suite())
+    fp.close()
